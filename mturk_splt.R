@@ -30,14 +30,47 @@ for (i in 199:220) {
 }
 
 #which female face do we hate:
+
+#first visually see which one sticks out
 num_mturk$Q293 <- factor(num_mturk$Q293)
 counts_f <- table(num_mturk$Q293)
 barplot(counts_f, main="Female Tall Poppy", las = 2)
+
+#then make sure that one (in this case, #4) is significantly different
+fem1_count <- as.numeric(counts_f[1])
+fem2_count <- as.numeric(counts_f[2])
+fem3_count <- as.numeric(counts_f[3])
+fem4_count <- as.numeric(counts_f[4])
+total_fem <- length(num_mturk$Q293)
+
+fem4_fem1 <- prop.test(x = c(fem1_count, fem4_count), n = c(total_fem, total_fem))
+fem4_fem2 <- prop.test(x = c(fem2_count, fem4_count), n = c(total_fem, total_fem))
+fem4_fem3 <- prop.test(x = c(fem3_count, fem4_count), n = c(total_fem, total_fem))
+
+#and then check that the remaining ones are basically the same
+fem3_fem1 <- prop.test(x = c(fem1_count, fem3_count), n = c(total_fem, total_fem))
+fem3_fem2 <- prop.test(x = c(fem2_count, fem3_count), n = c(total_fem, total_fem))
+fem2_fem1 <- prop.test(x = c(fem1_count, fem2_count), n = c(total_fem, total_fem))
 
 #which male face do we hate:
 num_mturk$Q294 <- factor(num_mturk$Q294)
 counts_m <- table(num_mturk$Q294)
 barplot(counts_m, main="Male Tall Poppy", las = 2)
+
+male1_count <- as.numeric(counts_m[1])
+male2_count <- as.numeric(counts_m[2])
+male3_count <- as.numeric(counts_m[3])
+male4_count <- as.numeric(counts_m[4])
+total_male <- length(num_mturk$Q294)
+
+male3_male1 <- prop.test(x = c(male1_count, male3_count), n = c(total_male, total_male))
+male3_male2 <- prop.test(x = c(male2_count, male3_count), n = c(total_male, total_male))
+male3_male4 <- prop.test(x = c(male4_count, male3_count), n = c(total_male, total_male))
+
+male4_male1 <- prop.test(x = c(male1_count, male4_count), n = c(total_male, total_male))
+male4_male2 <- prop.test(x = c(male2_count, male4_count), n = c(total_male, total_male))
+male2_male1 <- prop.test(x = c(male1_count, male2_count), n = c(total_male, total_male))
+
 
 #do words fit in domain:
 domain_avgs_stat <- colMeans(num_mturk[ ,199:209], na.rm = TRUE, dims = 1)
