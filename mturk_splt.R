@@ -216,6 +216,36 @@ males_pop_plot+labs(title="Mean Rating Popular Male Faces", x="Male Face Number"
   scale_fill_manual(values=c('#999999','#E69F00'))+
   ylim(0, 5)
 
+#females too
+female1_pop <- (mean(num_mturk$Q2_1, na.rm = TRUE))
+female1_pop_se <- std.error(num_mturk$Q2_1)
+female1_pop_sur <- (mean(num_mturk$Q2_2, na.rm = TRUE))
+female2_pop <- (mean(num_mturk$Q499_1, na.rm = TRUE))
+female2_pop_se <- std.error(num_mturk$Q499_1)
+female2_pop_sur <- (mean(num_mturk$Q499_2, na.rm = TRUE))
+female3_pop <- (mean(num_mturk$Q500_1, na.rm = TRUE))
+female3_pop_se <- std.error(num_mturk$Q500_1)
+female3_pop_sur <- (mean(num_mturk$Q500_2, na.rm = TRUE))
+female4_pop <- (mean(num_mturk$Q501_1, na.rm = TRUE))
+female4_pop_se <- std.error(num_mturk$Q501_1)
+female4_pop_sur <- (mean(num_mturk$Q501_2, na.rm = TRUE))
+
+females_pop <- data.frame("face_num" = c(1:4), "mean_rating" = c(female1_pop, female2_pop, female3_pop, female4_pop), 
+                        "se" = c(female1_pop_se, female2_pop_se, female3_pop_se, female4_pop_se))
+females_pop$face_num=as.factor(females_pop$face_num)
+
+females_pop_plot<- ggplot(females_pop, aes(x=face_num, y=mean_rating)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_rating-se, ymax=mean_rating+se), width=.2,
+                position=position_dodge(.9)) 
+
+females_pop_plot+labs(title="Mean Rating Popular female Faces", x="female Face Number", 
+                    y = "Mean Rating (1=Strongly Disagree, 5=Strongly Agree)")+
+  theme_grey() +
+  scale_fill_manual(values=c('#999999','#E69F00'))+
+  ylim(0, 5)
+
 #that time I tried to do it all in base:
 #males_pop <- data.frame(num_mturk$Q502_1, num_mturk$Q503_1, num_mturk$Q504_1, num_mturk$Q505_1)
 #mface_pop_avgs <- colMeans(males_pop, na.rm = TRUE, dims = 1)
@@ -253,6 +283,37 @@ males_wea_plot+labs(title="Mean Rating Wealthy Male Faces", x="Male Face Number"
   theme_grey() +
   scale_fill_manual(values=c('#999999','#E69F00'))+
   ylim(0, 5)
+
+female1_wea <- (mean(num_mturk$Q489_1, na.rm = TRUE))
+female1_wea_se <- std.error(num_mturk$Q489_1)
+female1_wea_sur <- (mean(num_mturk$Q489_2, na.rm = TRUE))
+female2_wea <- (mean(num_mturk$Q506_1, na.rm = TRUE))
+female2_wea_se <- std.error(num_mturk$Q506_1)
+female2_wea_sur <- (mean(num_mturk$Q506_2, na.rm = TRUE))
+female3_wea <- (mean(num_mturk$Q507_1, na.rm = TRUE))
+female3_wea_se <- std.error(num_mturk$Q507_1)
+female3_wea_sur <- (mean(num_mturk$Q507_2, na.rm = TRUE))
+female4_wea <- (mean(num_mturk$Q508_1, na.rm = TRUE))
+female4_wea_se <- std.error(num_mturk$Q508_1)
+female4_wea_sur <- (mean(num_mturk$Q508_2, na.rm = TRUE))
+
+females_wea <- data.frame("face_num" = c(1:4), "mean_rating" = c(female1_wea, female2_wea, female3_wea, female4_wea), 
+                        "se" = c(female1_wea_se, female2_wea_se, female3_wea_se, female4_wea_se))
+females_wea$face_num=as.factor(females_wea$face_num)
+
+females_wea_plot<- ggplot(females_wea, aes(x=face_num, y=mean_rating)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_rating-se, ymax=mean_rating+se), width=.2,
+                position=position_dodge(.9)) 
+
+females_wea_plot+labs(title="Mean Rating Wealthy female Faces", x="female Face Number", 
+                    y = "Mean Rating (1=Strongly Disagree, 5=Strongly Agree)")+
+  theme_grey() +
+  scale_fill_manual(values=c('#999999','#E69F00'))+
+  ylim(0, 5)
+
+
 
 #avg popular and wealthy
 male1_pop_wea <- mean(rbind(num_mturk$Q502_1, num_mturk$Q509_1), na.rm = TRUE)
@@ -478,7 +539,7 @@ males_whi_plot+labs(title="Mean Rating Whistle Male Faces", x="Male Face Number"
   ylim(0, 5)
 
 
-# how does that compare to the average rating for that word across the female faces?
+# how does that compare to the average rating for that word across the female (#1, #2, #3) faces?
 females_pop <- mean(rbind(num_mturk$Q2_1, num_mturk$Q499_1, num_mturk$Q500_1), na.rm = TRUE)
 females_wea <- mean(rbind(num_mturk$Q489_1, num_mturk$Q506_1, num_mturk$Q507_1), na.rm = TRUE)
 females_fli <- mean(rbind(num_mturk$Q491_1, num_mturk$Q520_1, num_mturk$Q521_1), na.rm = TRUE)
@@ -621,12 +682,306 @@ males_whi2_plot+labs(title="WHISTLE Male Faces vs All Females", x="Male Face Num
   scale_fill_manual(values=c('#999999','#E69F00'))+
   ylim(0, 5)
 
+# So, it seems like we should choose Female Faces #1, #2, #3, and Male Faces #1, #2, #4. 
+# What do those words look like across each of those averages (by gender)?
+
+females_pop <- mean(rbind(num_mturk$Q2_1, num_mturk$Q499_1, num_mturk$Q500_1), na.rm = TRUE)
+females_pop_sd <- sd(rbind(num_mturk$Q2_1, num_mturk$Q499_1, num_mturk$Q500_1), na.rm = TRUE)
+females_pop_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q2_1, num_mturk$Q499_1, num_mturk$Q500_1)))
+                     
+females_wea <- mean(rbind(num_mturk$Q489_1, num_mturk$Q506_1, num_mturk$Q507_1), na.rm = TRUE)
+females_wea_sd <- sd(rbind(num_mturk$Q489_1, num_mturk$Q506_1, num_mturk$Q507_1), na.rm = TRUE)
+females_wea_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q489_1, num_mturk$Q506_1, num_mturk$Q507_1)))
+
+females_fli <- mean(rbind(num_mturk$Q491_1, num_mturk$Q520_1, num_mturk$Q521_1), na.rm = TRUE)
+females_fli_sd <- sd(rbind(num_mturk$Q491_1, num_mturk$Q520_1, num_mturk$Q521_1), na.rm = TRUE)
+females_fli_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q491_1, num_mturk$Q520_1, num_mturk$Q521_1)))
+
+females_sin <- mean(rbind(num_mturk$Q492_1, num_mturk$Q527_1, num_mturk$Q528_1), na.rm = TRUE)
+females_sin_sd <- sd(rbind(num_mturk$Q492_1, num_mturk$Q527_1, num_mturk$Q528_1), na.rm = TRUE)
+females_sin_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q492_1, num_mturk$Q527_1, num_mturk$Q528_1)))
+
+females_mil <- mean(rbind(num_mturk$Q496_1, num_mturk$Q555_1, num_mturk$Q556_1), na.rm = TRUE)
+females_mil_sd <- sd(rbind(num_mturk$Q496_1, num_mturk$Q555_1, num_mturk$Q556_1), na.rm = TRUE)
+females_mil_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q496_1, num_mturk$Q555_1, num_mturk$Q556_1)))
+
+females_sib <- mean(rbind(num_mturk$Q495_1, num_mturk$Q548_1, num_mturk$Q549_1), na.rm = TRUE)
+females_sib_sd <- sd(rbind(num_mturk$Q495_1, num_mturk$Q548_1, num_mturk$Q549_1), na.rm = TRUE)
+females_sib_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q495_1, num_mturk$Q548_1, num_mturk$Q549_1)))
+
+females_swi <- mean(rbind(num_mturk$Q494_1, num_mturk$Q541_1, num_mturk$Q542_1), na.rm = TRUE)
+females_swi_sd <- sd(rbind(num_mturk$Q494_1, num_mturk$Q541_1, num_mturk$Q542_1), na.rm = TRUE)
+females_swi_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q494_1, num_mturk$Q541_1, num_mturk$Q542_1)))
+
+females_whi <- mean(rbind(num_mturk$Q497_1, num_mturk$Q562_1, num_mturk$Q563_1), na.rm = TRUE)
+females_whi_sd <- sd(rbind(num_mturk$Q497_1, num_mturk$Q562_1, num_mturk$Q563_1), na.rm = TRUE)
+females_whi_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q497_1, num_mturk$Q520_1, num_mturk$Q563_1)))
+
+females_allwords <- data.frame("word" = c("1_popular","2_wealthy","3_flirty","4_single","5_milk","6_siblings",
+                                        "7_swimming", "8_whistle"), 
+                             "mean_rating" = c(females_pop, females_wea, females_fli, females_sin, 
+                                               females_mil, females_sib, females_swi, females_whi), 
+                             "se" = c(females_pop_se, females_wea_se, females_fli_se, females_sin_se, females_mil_se,
+                                      females_sib_se, females_swi_se, females_whi_se))
+females_allwords$word=as.factor(females_allwords$word)
+
+females_allwords_plot<- ggplot(females_allwords, aes(x=word, y=mean_rating)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_rating-se, ymax=mean_rating+se), width=.2,
+                position=position_dodge(.9)) 
+
+females_allwords_plot+labs(title="Mean Rating by Word - Female Faces 1, 2, 3", x="Word", 
+                         y = "Mean Rating (1=Strongly Disagree, 5=Strongly Agree)")+
+  theme_grey() +
+  scale_fill_manual(values=c('#999999','#E69F00'))+
+  ylim(0, 5)
+
+
+
+
+males_pop <- mean(rbind(num_mturk$Q502_1, num_mturk$Q503_1, num_mturk$Q505_1), na.rm = TRUE)
+males_pop_sd <- sd(rbind(num_mturk$Q502_1, num_mturk$Q503_1, num_mturk$Q505_1), na.rm = TRUE)
+males_pop_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q502_1, num_mturk$Q503_1, num_mturk$Q505_1)))
+
+males_wea <- mean(rbind(num_mturk$Q509_1, num_mturk$Q510_1, num_mturk$Q512_1), na.rm = TRUE)
+males_wea_sd <- sd(rbind(num_mturk$Q509_1, num_mturk$Q510_1, num_mturk$Q512_1), na.rm = TRUE)
+males_wea_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q509_1, num_mturk$Q510_1, num_mturk$Q512_1)))
+
+males_fli <- mean(rbind(num_mturk$Q523_1, num_mturk$Q524_1, num_mturk$Q526_1), na.rm = TRUE)
+males_fli_sd <- sd(rbind(num_mturk$Q523_1, num_mturk$Q524_1, num_mturk$Q526_1), na.rm = TRUE)
+males_fli_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q523_1, num_mturk$Q524_1, num_mturk$Q526_1)))
+
+males_sin <- mean(rbind(num_mturk$Q530_1, num_mturk$Q531_1, num_mturk$Q533_1), na.rm = TRUE)
+males_sin_sd <- sd(rbind(num_mturk$Q530_1, num_mturk$Q531_1, num_mturk$Q533_1), na.rm = TRUE)
+males_sin_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q530_1, num_mturk$Q531_1, num_mturk$Q533_1)))
+
+males_mil <- mean(rbind(num_mturk$Q558_1, num_mturk$Q559_1, num_mturk$Q561_1), na.rm = TRUE)
+males_mil_sd <- sd(rbind(num_mturk$Q558_1, num_mturk$Q559_1, num_mturk$Q561_1), na.rm = TRUE)
+males_mil_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q558_1, num_mturk$Q559_1, num_mturk$Q561_1)))
+
+males_sib <- mean(rbind(num_mturk$Q551_1, num_mturk$Q552_1, num_mturk$Q554_1), na.rm = TRUE)
+males_sib_sd <- sd(rbind(num_mturk$Q551_1, num_mturk$Q552_1, num_mturk$Q554_1), na.rm = TRUE)
+males_sib_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q551_1, num_mturk$Q552_1, num_mturk$Q554_1)))
+
+males_swi <- mean(rbind(num_mturk$Q544_1, num_mturk$Q545_1, num_mturk$Q547_1), na.rm = TRUE)
+males_swi_sd <- sd(rbind(num_mturk$Q544_1, num_mturk$Q545_1, num_mturk$Q547_1), na.rm = TRUE)
+males_swi_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q544_1, num_mturk$Q545_1, num_mturk$Q547_1)))
+
+males_whi <- mean(rbind(num_mturk$Q565_1, num_mturk$Q566_1, num_mturk$Q568_1), na.rm = TRUE)
+males_whi_sd <- sd(rbind(num_mturk$Q565_1, num_mturk$Q566_1, num_mturk$Q568_1), na.rm = TRUE)
+males_whi_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q565_1, num_mturk$Q566_1, num_mturk$Q568_1)))
+
+males_allwords <- data.frame("word" = c("1_popular","2_wealthy","3_flirty","4_single","5_milk","6_siblings",
+                                        "7_swimming", "8_whistle"), 
+                             "mean_rating" = c(males_pop, males_wea, males_fli, males_sin, 
+                                               males_mil, males_sib, males_swi, males_whi), 
+                        "se" = c(males_pop_se, males_wea_se, males_fli_se, males_sin_se, males_mil_se,
+                                 males_sib_se, males_swi_se, males_whi_se))
+males_allwords$word=as.factor(males_allwords$word)
+
+males_allwords_plot<- ggplot(males_allwords, aes(x=word, y=mean_rating)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_rating-se, ymax=mean_rating+se), width=.2,
+                position=position_dodge(.9)) 
+
+males_allwords_plot+labs(title="Mean Rating by Word - Male Faces 1, 2, 4", x="Word", 
+                    y = "Mean Rating (1=Strongly Disagree, 5=Strongly Agree)")+
+  theme_grey() +
+  scale_fill_manual(values=c('#999999','#E69F00'))+
+  ylim(0, 5)
+
+# Compare average females vs. males by word
+
+# POPULAR
+
+females_males_pop <- data.frame("gender" = c("females","males"), 
+                                "mean_rating" = c(females_pop, males_pop), 
+                                "se" = c(females_pop_se, males_pop_se))
+females_males_pop$gender=as.factor(females_males_pop$gender)
+
+females_males_pop_plot<- ggplot(females_males_pop, aes(x=gender, y=mean_rating)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_rating-se, ymax=mean_rating+se), width=.2,
+                position=position_dodge(.9)) 
+
+females_males_pop_plot+labs(title="POPULAR - Female Faces 1, 2, 3 (x); Male Faces 1, 2, 4 (y)", 
+                            x="gender", y = "Mean Rating (1=Strongly Disagree, 5=Strongly Agree)")+
+  theme_grey() +
+  scale_fill_manual(values=c('#999999','#E69F00'))+
+  ylim(0, 5)
+
+females_males_pop_ttest <- t.test((rbind(num_mturk$Q2_1, num_mturk$Q499_1, num_mturk$Q500_1)), 
+       (rbind(num_mturk$Q502_1, num_mturk$Q503_1, num_mturk$Q505_1)))
+
+# WEALTHY
+
+females_males_wea <- data.frame("gender" = c("females","males"), 
+                                "mean_rating" = c(females_wea, males_wea), 
+                                "se" = c(females_wea_se, males_wea_se))
+females_males_wea$gender=as.factor(females_males_wea$gender)
+
+females_males_wea_plot<- ggplot(females_males_wea, aes(x=gender, y=mean_rating)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_rating-se, ymax=mean_rating+se), width=.2,
+                position=position_dodge(.9)) 
+
+females_males_wea_plot+labs(title="WEALTHY - Female Faces 1, 2, 3 (x); Male Faces 1, 2, 4 (y)", 
+                            x="gender", y = "Mean Rating (1=Strongly Disagree, 5=Strongly Agree)")+
+  theme_grey() +
+  scale_fill_manual(values=c('#999999','#E69F00'))+
+  ylim(0, 5)
+
+females_males_wea_ttest <- t.test((rbind(num_mturk$Q489_1, num_mturk$Q506_1, num_mturk$Q507_1)), 
+       (rbind(num_mturk$Q509_1, num_mturk$Q510_1, num_mturk$Q512_1)))
+
+# FLIRTY
+
+females_males_fli <- data.frame("gender" = c("females","males"), 
+                                "mean_rating" = c(females_fli, males_fli), 
+                                "se" = c(females_fli_se, males_fli_se))
+females_males_fli$gender=as.factor(females_males_fli$gender)
+
+females_males_fli_plot<- ggplot(females_males_fli, aes(x=gender, y=mean_rating)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_rating-se, ymax=mean_rating+se), width=.2,
+                position=position_dodge(.9)) 
+
+females_males_fli_plot+labs(title="FLIRTY - Female Faces 1, 2, 3 (x); Male Faces 1, 2, 4 (y)", 
+                            x="gender", y = "Mean Rating (1=Strongly Disagree, 5=Strongly Agree)")+
+  theme_grey() +
+  scale_fill_manual(values=c('#999999','#E69F00'))+
+  ylim(0, 5)
+
+females_males_fli_ttest <- t.test((rbind(num_mturk$Q491_1, num_mturk$Q520_1, num_mturk$Q521_1)), 
+                                  (rbind(num_mturk$Q523_1, num_mturk$Q524_1, num_mturk$Q526_1)))
+
+# SINGLE
+
+females_males_sin <- data.frame("gender" = c("females","males"), 
+                                "mean_rating" = c(females_sin, males_sin), 
+                                "se" = c(females_sin_se, males_sin_se))
+females_males_sin$gender=as.factor(females_males_sin$gender)
+
+females_males_sin_plot<- ggplot(females_males_sin, aes(x=gender, y=mean_rating)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_rating-se, ymax=mean_rating+se), width=.2,
+                position=position_dodge(.9)) 
+
+females_males_sin_plot+labs(title="SINGLE - Female Faces 1, 2, 3 (x); Male Faces 1, 2, 4 (y)", 
+                            x="gender", y = "Mean Rating (1=Strongly Disagree, 5=Strongly Agree)")+
+  theme_grey() +
+  scale_fill_manual(values=c('#999999','#E69F00'))+
+  ylim(0, 5)
+
+females_males_sin_ttest <- t.test((rbind(num_mturk$Q492_1, num_mturk$Q527_1, num_mturk$Q528_1)), 
+                                  (rbind(num_mturk$Q530_1, num_mturk$Q531_1, num_mturk$Q533_1)))
+
+
+# MILK
+
+females_males_mil <- data.frame("gender" = c("females","males"), 
+                                "mean_rating" = c(females_mil, males_mil), 
+                                "se" = c(females_mil_se, males_mil_se))
+females_males_mil$gender=as.factor(females_males_mil$gender)
+
+females_males_mil_plot<- ggplot(females_males_mil, aes(x=gender, y=mean_rating)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_rating-se, ymax=mean_rating+se), width=.2,
+                position=position_dodge(.9)) 
+
+females_males_mil_plot+labs(title="MILK - Female Faces 1, 2, 3 (x); Male Faces 1, 2, 4 (y)", 
+                            x="gender", y = "Mean Rating (1=Strongly Disagree, 5=Strongly Agree)")+
+  theme_grey() +
+  scale_fill_manual(values=c('#999999','#E69F00'))+
+  ylim(0, 5)
+
+females_males_mil_ttest <- t.test((rbind(num_mturk$Q496_1, num_mturk$Q555_1, num_mturk$Q556_1)), 
+                                  (rbind(num_mturk$Q558_1, num_mturk$Q559_1, num_mturk$Q561_1)))
+
+
+# SIBLINGS
+
+females_males_sib <- data.frame("gender" = c("females","males"), 
+                                "mean_rating" = c(females_sib, males_sib), 
+                                "se" = c(females_sib_se, males_sib_se))
+females_males_sib$gender=as.factor(females_males_sib$gender)
+
+females_males_sib_plot<- ggplot(females_males_sib, aes(x=gender, y=mean_rating)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_rating-se, ymax=mean_rating+se), width=.2,
+                position=position_dodge(.9)) 
+
+females_males_sib_plot+labs(title="SIBLINGS - Female Faces 1, 2, 3 (x); Male Faces 1, 2, 4 (y)", 
+                            x="gender", y = "Mean Rating (1=Strongly Disagree, 5=Strongly Agree)")+
+  theme_grey() +
+  scale_fill_manual(values=c('#999999','#E69F00'))+
+  ylim(0, 5)
+
+females_males_sib_ttest <- t.test((rbind(num_mturk$Q495_1, num_mturk$Q548_1, num_mturk$Q549_1)), 
+                                  (rbind(num_mturk$Q551_1, num_mturk$Q552_1, num_mturk$Q554_1)))
+
+# SWIMMING
+
+females_males_swi <- data.frame("gender" = c("females","males"), 
+                                "mean_rating" = c(females_swi, males_swi), 
+                                "se" = c(females_swi_se, males_swi_se))
+females_males_swi$gender=as.factor(females_males_swi$gender)
+
+females_males_swi_plot<- ggplot(females_males_swi, aes(x=gender, y=mean_rating)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_rating-se, ymax=mean_rating+se), width=.2,
+                position=position_dodge(.9)) 
+
+females_males_swi_plot+labs(title="SWIMMING - Female Faces 1, 2, 3 (x); Male Faces 1, 2, 4 (y)", 
+                            x="gender", y = "Mean Rating (1=Strongly Disagree, 5=Strongly Agree)")+
+  theme_grey() +
+  scale_fill_manual(values=c('#999999','#E69F00'))+
+  ylim(0, 5)
+
+females_males_swi_ttest <- t.test((rbind(num_mturk$Q494_1, num_mturk$Q541_1, num_mturk$Q542_1)), 
+                                  (rbind(num_mturk$Q544_1, num_mturk$Q545_1, num_mturk$Q547_1)))
+
+# WHISTLE
+
+females_males_whi <- data.frame("gender" = c("females","males"), 
+                                "mean_rating" = c(females_whi, males_whi), 
+                                "se" = c(females_whi_se, males_whi_se))
+females_males_whi$gender=as.factor(females_males_whi$gender)
+
+females_males_whi_plot<- ggplot(females_males_whi, aes(x=gender, y=mean_rating)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_rating-se, ymax=mean_rating+se), width=.2,
+                position=position_dodge(.9)) 
+
+females_males_whi_plot+labs(title="WHISTLE - Female Faces 1, 2, 3 (x); Male Faces 1, 2, 4 (y)", 
+                            x="gender", y = "Mean Rating (1=Strongly Disagree, 5=Strongly Agree)")+
+  theme_grey() +
+  scale_fill_manual(values=c('#999999','#E69F00'))+
+  ylim(0, 5)
+
+females_males_whi_ttest <- t.test((rbind(num_mturk$Q497_1, num_mturk$Q562_1, num_mturk$Q563_1)), 
+                                  (rbind(num_mturk$Q565_1, num_mturk$Q566_1, num_mturk$Q568_1)))
+
+
 # 2 x 2 ANOVA across faces and words to be not significant.
 
+# order of these three blocks randomized:
 
 # POST SPLT - just have them answer this for each face ("In this task, which word did 
 #this face go with most often?")
- # (order of these two blocks randomized.)
+
 # Post-SPLT - each of the 6 faces ask "This person has high social status" (how much they agree).
 # "This person is available for new romantic relationships"
 # "I would like to hang out with this person"
+
+# How interesting was it to learn if the people were [ each of the words ]
