@@ -687,35 +687,43 @@ males_whi2_plot+labs(title="WHISTLE Male Faces vs All Females", x="Male Face Num
 
 females_pop <- mean(rbind(num_mturk$Q2_1, num_mturk$Q499_1, num_mturk$Q500_1), na.rm = TRUE)
 females_pop_sd <- sd(rbind(num_mturk$Q2_1, num_mturk$Q499_1, num_mturk$Q500_1), na.rm = TRUE)
-females_pop_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q2_1, num_mturk$Q499_1, num_mturk$Q500_1)))
+females_pop_num <- sum(!is.na(rbind(num_mturk$Q2_1, num_mturk$Q499_1, num_mturk$Q500_1)))
+females_pop_se <- females_pop_sd/sqrt(females_pop_num)
                      
 females_wea <- mean(rbind(num_mturk$Q489_1, num_mturk$Q506_1, num_mturk$Q507_1), na.rm = TRUE)
 females_wea_sd <- sd(rbind(num_mturk$Q489_1, num_mturk$Q506_1, num_mturk$Q507_1), na.rm = TRUE)
-females_wea_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q489_1, num_mturk$Q506_1, num_mturk$Q507_1)))
+females_wea_num <- sum(!is.na(rbind(num_mturk$Q489_1, num_mturk$Q506_1, num_mturk$Q507_1)))
+females_wea_se <- females_wea_se <- females_pop_sd/sqrt(females_wea_num)
 
 females_fli <- mean(rbind(num_mturk$Q491_1, num_mturk$Q520_1, num_mturk$Q521_1), na.rm = TRUE)
 females_fli_sd <- sd(rbind(num_mturk$Q491_1, num_mturk$Q520_1, num_mturk$Q521_1), na.rm = TRUE)
-females_fli_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q491_1, num_mturk$Q520_1, num_mturk$Q521_1)))
+females_fli_num <- sum(!is.na(rbind(num_mturk$Q491_1, num_mturk$Q520_1, num_mturk$Q521_1)))
+females_fli_se <- females_pop_sd/sqrt(females_fli_num)
 
 females_sin <- mean(rbind(num_mturk$Q492_1, num_mturk$Q527_1, num_mturk$Q528_1), na.rm = TRUE)
 females_sin_sd <- sd(rbind(num_mturk$Q492_1, num_mturk$Q527_1, num_mturk$Q528_1), na.rm = TRUE)
-females_sin_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q492_1, num_mturk$Q527_1, num_mturk$Q528_1)))
+females_sin_num <- sum(!is.na(rbind(num_mturk$Q492_1, num_mturk$Q527_1, num_mturk$Q528_1)))
+females_sin_se <- females_pop_sd/sqrt(females_sin_num)
 
 females_mil <- mean(rbind(num_mturk$Q496_1, num_mturk$Q555_1, num_mturk$Q556_1), na.rm = TRUE)
 females_mil_sd <- sd(rbind(num_mturk$Q496_1, num_mturk$Q555_1, num_mturk$Q556_1), na.rm = TRUE)
-females_mil_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q496_1, num_mturk$Q555_1, num_mturk$Q556_1)))
+females_mil_num <- sum(!is.na(rbind(num_mturk$Q496_1, num_mturk$Q555_1, num_mturk$Q556_1)))
+females_mil_se <- females_pop_sd/sqrt(females_mil_num)
 
 females_sib <- mean(rbind(num_mturk$Q495_1, num_mturk$Q548_1, num_mturk$Q549_1), na.rm = TRUE)
 females_sib_sd <- sd(rbind(num_mturk$Q495_1, num_mturk$Q548_1, num_mturk$Q549_1), na.rm = TRUE)
-females_sib_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q495_1, num_mturk$Q548_1, num_mturk$Q549_1)))
+females_sib_num <- sum(!is.na(rbind(num_mturk$Q495_1, num_mturk$Q548_1, num_mturk$Q549_1)))
+females_sib_se <- females_pop_sd/sqrt(females_sib_num)
 
 females_swi <- mean(rbind(num_mturk$Q494_1, num_mturk$Q541_1, num_mturk$Q542_1), na.rm = TRUE)
 females_swi_sd <- sd(rbind(num_mturk$Q494_1, num_mturk$Q541_1, num_mturk$Q542_1), na.rm = TRUE)
-females_swi_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q494_1, num_mturk$Q541_1, num_mturk$Q542_1)))
+females_swi_num <- sum(!is.na(rbind(num_mturk$Q494_1, num_mturk$Q541_1, num_mturk$Q542_1)))
+females_swi_se <- females_pop_sd/sqrt(females_swi_num)
 
 females_whi <- mean(rbind(num_mturk$Q497_1, num_mturk$Q562_1, num_mturk$Q563_1), na.rm = TRUE)
 females_whi_sd <- sd(rbind(num_mturk$Q497_1, num_mturk$Q562_1, num_mturk$Q563_1), na.rm = TRUE)
-females_whi_se <- females_pop_sd/sum(!is.na(rbind(num_mturk$Q497_1, num_mturk$Q520_1, num_mturk$Q563_1)))
+females_whi_num <- sum(!is.na(rbind(num_mturk$Q497_1, num_mturk$Q520_1, num_mturk$Q563_1)))
+females_whi_se <- females_pop_sd/sqrt(females_whi_num)
 
 females_allwords <- data.frame("word" = c("1_popular","2_wealthy","3_flirty","4_single","5_milk","6_siblings",
                                         "7_swimming", "8_whistle"), 
@@ -742,35 +750,43 @@ females_allwords_plot+labs(title="Mean Rating by Word - Female Faces 1, 2, 3", x
 
 males_pop <- mean(rbind(num_mturk$Q502_1, num_mturk$Q503_1, num_mturk$Q505_1), na.rm = TRUE)
 males_pop_sd <- sd(rbind(num_mturk$Q502_1, num_mturk$Q503_1, num_mturk$Q505_1), na.rm = TRUE)
-males_pop_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q502_1, num_mturk$Q503_1, num_mturk$Q505_1)))
+males_pop_num <- sum(!is.na(rbind(num_mturk$Q502_1, num_mturk$Q503_1, num_mturk$Q505_1)))
+males_pop_se <- males_pop_sd/sqrt(males_pop_num)
 
 males_wea <- mean(rbind(num_mturk$Q509_1, num_mturk$Q510_1, num_mturk$Q512_1), na.rm = TRUE)
 males_wea_sd <- sd(rbind(num_mturk$Q509_1, num_mturk$Q510_1, num_mturk$Q512_1), na.rm = TRUE)
-males_wea_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q509_1, num_mturk$Q510_1, num_mturk$Q512_1)))
+males_wea_num <- sum(!is.na(rbind(num_mturk$Q509_1, num_mturk$Q510_1, num_mturk$Q512_1)))
+males_wea_se <- males_pop_sd/sqrt(males_wea_num)
 
 males_fli <- mean(rbind(num_mturk$Q523_1, num_mturk$Q524_1, num_mturk$Q526_1), na.rm = TRUE)
 males_fli_sd <- sd(rbind(num_mturk$Q523_1, num_mturk$Q524_1, num_mturk$Q526_1), na.rm = TRUE)
-males_fli_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q523_1, num_mturk$Q524_1, num_mturk$Q526_1)))
+males_fli_num <- sum(!is.na(rbind(num_mturk$Q523_1, num_mturk$Q524_1, num_mturk$Q526_1)))
+males_fli_se <- males_pop_sd/sqrt(males_fli_num)
 
 males_sin <- mean(rbind(num_mturk$Q530_1, num_mturk$Q531_1, num_mturk$Q533_1), na.rm = TRUE)
 males_sin_sd <- sd(rbind(num_mturk$Q530_1, num_mturk$Q531_1, num_mturk$Q533_1), na.rm = TRUE)
-males_sin_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q530_1, num_mturk$Q531_1, num_mturk$Q533_1)))
+males_sin_num <- sum(!is.na(rbind(num_mturk$Q530_1, num_mturk$Q531_1, num_mturk$Q533_1)))
+males_sin_se <- males_pop_sd/sqrt(males_sin_num)
 
 males_mil <- mean(rbind(num_mturk$Q558_1, num_mturk$Q559_1, num_mturk$Q561_1), na.rm = TRUE)
 males_mil_sd <- sd(rbind(num_mturk$Q558_1, num_mturk$Q559_1, num_mturk$Q561_1), na.rm = TRUE)
-males_mil_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q558_1, num_mturk$Q559_1, num_mturk$Q561_1)))
+males_mil_num <- sum(!is.na(rbind(num_mturk$Q558_1, num_mturk$Q559_1, num_mturk$Q561_1)))
+males_mil_se <- males_pop_sd/sqrt(males_mil_num)
 
 males_sib <- mean(rbind(num_mturk$Q551_1, num_mturk$Q552_1, num_mturk$Q554_1), na.rm = TRUE)
 males_sib_sd <- sd(rbind(num_mturk$Q551_1, num_mturk$Q552_1, num_mturk$Q554_1), na.rm = TRUE)
-males_sib_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q551_1, num_mturk$Q552_1, num_mturk$Q554_1)))
+males_sib_num <- sum(!is.na(rbind(num_mturk$Q551_1, num_mturk$Q552_1, num_mturk$Q554_1)))
+males_sib_se <- males_pop_sd/sqrt(males_sib_num)
 
 males_swi <- mean(rbind(num_mturk$Q544_1, num_mturk$Q545_1, num_mturk$Q547_1), na.rm = TRUE)
 males_swi_sd <- sd(rbind(num_mturk$Q544_1, num_mturk$Q545_1, num_mturk$Q547_1), na.rm = TRUE)
-males_swi_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q544_1, num_mturk$Q545_1, num_mturk$Q547_1)))
+males_swi_num <- sum(!is.na(rbind(num_mturk$Q544_1, num_mturk$Q545_1, num_mturk$Q547_1)))
+males_swi_se <- males_pop_sd/sqrt(males_swi_num)
 
 males_whi <- mean(rbind(num_mturk$Q565_1, num_mturk$Q566_1, num_mturk$Q568_1), na.rm = TRUE)
 males_whi_sd <- sd(rbind(num_mturk$Q565_1, num_mturk$Q566_1, num_mturk$Q568_1), na.rm = TRUE)
-males_whi_se <- males_pop_sd/sum(!is.na(rbind(num_mturk$Q565_1, num_mturk$Q566_1, num_mturk$Q568_1)))
+males_whi_num <- sum(!is.na(rbind(num_mturk$Q565_1, num_mturk$Q566_1, num_mturk$Q568_1)))
+males_whi_se <- males_pop_sd/sqrt(males_whi_num)
 
 males_allwords <- data.frame("word" = c("1_popular","2_wealthy","3_flirty","4_single","5_milk","6_siblings",
                                         "7_swimming", "8_whistle"), 
@@ -973,7 +989,7 @@ females_males_whi_ttest <- t.test((rbind(num_mturk$Q497_1, num_mturk$Q562_1, num
                                   (rbind(num_mturk$Q565_1, num_mturk$Q566_1, num_mturk$Q568_1)))
 
 
-# 2 x 2 ANOVA across faces and words to be not significant.
+# ADD TO POST SPLT QUESTIONNAIRE ON QUALTRICS:
 
 # order of these three blocks randomized:
 
